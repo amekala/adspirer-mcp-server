@@ -1,8 +1,18 @@
 # Amazon Advertising MCP Server - For Technical Users
 
+[![smithery badge](https://smithery.ai/badge/@amekala/adspirer-mcp-server)](https://smithery.ai/server/@amekala/adspirer-mcp-server)
+
 This guide is for technical users who want to install and configure the Amazon Advertising MCP Server for Claude Desktop using npm and command-line tools.
 
 ## Installation
+
+### Installing via Smithery
+
+To install adspirer-mcp-server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@amekala/adspirer-mcp-server):
+
+```bash
+npx -y @smithery/cli install @amekala/adspirer-mcp-server --client claude
+```
 
 ### Method 1: Global npm Installation (Recommended)
 

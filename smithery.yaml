@@ -1,0 +1,38 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - apiKey
+      - supabaseUrl
+      - supabaseKey
+    properties:
+      apiKey:
+        type: string
+        description: Your Amazon Advertising API key.
+      supabaseUrl:
+        type: string
+        description: Supabase URL for database access.
+      supabaseKey:
+        type: string
+        description: Supabase API key for database access.
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'node',
+      args: ['index.js'],
+      env: {
+        API_KEY: config.apiKey,
+        SUPABASE_URL: config.supabaseUrl,
+        SUPABASE_KEY: config.supabaseKey,
+        NODE_ENV: 'production'
+      }
+    })
+  exampleConfig:
+    apiKey: your_amazon_ads_api_key_here
+    supabaseUrl: https://your-supabase-url.supabase.co
+    supabaseKey: your_supabase_api_key_here

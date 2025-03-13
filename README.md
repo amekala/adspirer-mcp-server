@@ -1,124 +1,116 @@
-# Amazon Advertising MCP Server for Claude Desktop
+# Amazon Advertising MCP Server - For Technical Users
 
-This is a Model Context Protocol (MCP) server that enables Claude to access data from your Amazon Advertising accounts through the Claude Desktop application.
+This guide is for technical users who want to install and configure the Amazon Advertising MCP Server for Claude Desktop using npm and command-line tools.
 
-## Features
+## Installation
 
-- Authenticates via API keys stored in your Supabase database
-- Provides tools for Claude to access Amazon Advertising data:
-  - `getAdvertiserInfo` - Get information about the current advertiser account
-  - `listAdvertiserAccounts` - List all available advertiser accounts
-  - `ping` - Simple connectivity test
-  - `echo` - Test tool with parameters
-  - `validateApiKey` - Verify your API key is working
+### Method 1: Global npm Installation (Recommended)
 
-## Installation Options
-
-### For Technical Users (npm global installation)
-
-The easiest way to install and configure the MCP server is via npm:
+The MCP server can be installed globally, making it available from anywhere in your command line:
 
 ```bash
 # Install globally
 npm install -g adspirer-mcp-server
 
-# Set up your Supabase credentials
-adspirer-mcp setup
-
-# Configure Claude Desktop automatically
+# Configure Claude Desktop to use the MCP server
 adspirer-mcp config
 
-# Test your MCP server
+# Test the MCP connection
 adspirer-mcp test
 ```
 
-See [TECHNICAL_USERS.md](TECHNICAL_USERS.md) for detailed instructions for technical users.
+During the configuration process, you will be prompted to enter your Amazon Advertising API key. This is the only credential you need to provide.
 
-### Manual Setup
+### Method 2: Local Installation from Source
 
-1. Install dependencies:
-   ```
-   npm install
-   ```
+You can also clone the repository and install locally:
 
-2. Set up Supabase credentials securely:
-   ```
-   node setup-credentials.js
-   ```
-   This will prompt you to enter your Supabase URL and key, which will be stored securely in a `.env.supabase` file with restricted permissions.
+```bash
+# Clone repository
+git clone https://github.com/yourusername/adspirer-mcp-server.git
+cd adspirer-mcp-server
 
-3. Run the MCP server manually for testing:
-   ```
-   npm start
-   ```
-   Or use the test script to verify everything is working:
-   ```
-   node test-mcp.js
-   ```
+# Install dependencies
+npm install
 
-## Claude Desktop Integration
+# Configure Claude Desktop
+adspirer-mcp config
+```
 
-To use this MCP server with Claude Desktop, create/edit the Claude config file:
+## Claude Desktop Configuration
 
-- Windows: `%APPDATA%\Claude\config.json`
-- macOS: `~/Library/Application Support/Claude/config.json`
-- Linux: `~/.config/Claude/config.json`
-
-Add the following configuration:
+The command `adspirer-mcp config` will automatically configure Claude Desktop to use the correct command without absolute paths:
 
 ```json
 {
   "mcpServers": {
     "amazon-ads": {
-      "command": "node",
-      "args": ["/absolute/path/to/your/project/index.js"],
-      "cwd": "/absolute/path/to/your/project",
+      "command": "adspirer-mcp",
+      "args": ["start"],
       "env": {
         "API_KEY": "your_api_key_here",
-        "NODE_ENV": "production",
-        "DEBUG": "true",
-        "MCP_SERVER_VERSION": "1.0.0"
+        "NODE_ENV": "production"
       }
     }
   }
 }
 ```
 
-Replace:
-- `/absolute/path/to/your/project` with the full path to your project directory
-- `your_api_key_here` with your Amazon Advertising API key
+This configuration uses the globally installed `adspirer-mcp` command, making it portable across different machines without needing to specify absolute paths.
 
-**Important Note:** You only need to provide your API key in the configuration. The server will load the database credentials securely from your .env.supabase file.
+## API Key
 
-## Security Features
+The Amazon Advertising API key is the only credential you need to provide. This is your personal key that gives you access to Amazon Advertising data. The MCP server uses this key to authenticate your requests.
 
-- Supabase credentials are never exposed in the Claude Desktop configuration
-- Sensitive database credentials are stored in a separate `.env.supabase` file with restricted permissions
-- The server can load credentials from multiple sources (environment variables, config file, or defaults for development)
-- Proper error handling when credentials are missing or incorrect
+You can obtain an Amazon Advertising API key from the Amazon Advertising console or your account manager.
 
-## Database Structure
+## How It Works
 
-The server expects the following tables in your Supabase database:
+1. The MCP server uses your Amazon Advertising API key to authenticate requests
+2. All data is securely fetched and stored in a private backend database
+3. You don't need to know any details about the database infrastructure
+4. Your API key only gives access to your own data
 
-- `api_keys` - Stores API keys for authentication
-- `advertisers` - Stores advertiser account information
-- `campaigns` - Stores campaign data
-- `campaign_metrics` - Stores performance metrics for campaigns
+## Usage
 
-## Using with Claude
+Once installed, you can start the MCP server with:
 
-Once configured, you can ask Claude questions about your Amazon Advertising data:
+```bash
+adspirer-mcp start
+```
 
-1. "Show me my current advertiser account information"
-2. "List all my advertiser accounts"
-3. "Show me my recent campaigns and their performance"
+This will launch the MCP server that Claude Desktop will communicate with.
 
-Claude will use the MCP server to retrieve real-time data from your Supabase database.
+## Development and Customization
+
+If you want to modify the MCP server:
+
+1. Clone the repository
+2. Make your changes
+3. Build with `npm run build`
+4. Test locally with `npm start` or `node index.js`
+
+You can also link your local development version globally:
+
+```bash
+# In the repository directory
+npm link
+
+# Now you can use your development version globally
+adspirer-mcp start
+```
 
 ## Troubleshooting
 
-- If authentication fails, check that your API key is valid and properly formatted
-- Make sure you've run `node setup-credentials.js` to set up your Supabase credentials
-- Check the `mcp-debug.log` file for detailed error messages
-- Run `node test-mcp.js` to verify that your MCP server is working correctly 
+Common issues:
+
+1. **Claude Desktop can't find the MCP server**
+   - Ensure the global package is properly installed
+   - Check that the command exists in your PATH: `which adspirer-mcp`
+
+2. **Authentication failures**
+   - Verify your API key is correct
+   - Ensure your API key is active and properly formatted
+
+3. **Path-related errors**
+   - This is why we use the global command approach - no absolute paths! 

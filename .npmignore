@@ -1,0 +1,22 @@
+# Development files
+node_modules/
+.git/
+.gitignore
+*.log
+.env
+.env.*
+!.env.example
+
+# Test files
+test-mcp.js
+
+# Build artifacts
+dist-package/
+*.zip
+
+# Documentation
+Project-Docs/
+
+# Misc
+output.log
+mcp-debug.log 

@@ -1,0 +1,42 @@
+{
+  "name": "adspirer-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for Amazon Advertising data integration with Claude",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "adspirer-mcp": "./bin/cli.js"
+  },
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node -r dotenv/config index.js",
+    "start": "node index.js",
+    "explore-db": "node scripts/explore-db.js",
+    "check-api-keys": "node scripts/check-api-keys.js",
+    "test-mcp": "node scripts/test-mcp-connection.js",
+    "package": "npm run build && node scripts/create-package.js",
+    "prepare-release": "npm run build && npm prune --production"
+  },
+  "keywords": [
+    "mcp",
+    "claude",
+    "amazon-advertising"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "esbuild": "^0.19.12",
+    "esbuild-node-externals": "^1.18.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.7.0",
+    "@supabase/supabase-js": "^2.49.1",
+    "axios": "^1.8.3",
+    "chalk": "^5.4.1",
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.2"
+  }
+}

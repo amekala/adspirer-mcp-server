@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "amazon-ads": {
+      "command": "adspirer-mcp",
+      "args": ["start"],
+      "env": {
+        "API_KEY": "your_api_key_here",
+        "NODE_ENV": "production"
+      }
+    }
+  }
+} 

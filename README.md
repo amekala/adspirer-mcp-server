@@ -1,10 +1,10 @@
-# Ads Copilot for Claude
+# Ads Manager MCP server for Claude
 
 Transform your advertising experience with AI-powered insights and management - right inside Claude!
 
 ## What It Does
 
-Ads Copilot is your AI assistant for managing digital advertising campaigns. Through simple conversations in Claude, you can:
+This Ads MCP server is your AI assistant for managing digital advertising campaigns. Through simple conversations in Claude, you can:
 
 - Analyze campaign performance and get actionable insights
 - Create and manage advertising campaigns

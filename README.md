@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/amekala-adspirer-mcp-server-badge.png)](https://mseep.ai/app/amekala-adspirer-mcp-server)
+
 # Ads Manager MCP server for Claude
 
 Transform your advertising experience with AI-powered insights and management - right inside Claude!
